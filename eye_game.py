@@ -12,7 +12,7 @@ class EyeGamePage:
     url = "https://www.igame.com/eye-test/"
 
     JASTRZAB = Level(name='jastrząb', value=25)
-    ROBOT = Level(name='robot', value=30)
+    ROBOT = Level(name='ROBOT', value=30)
     #ROBOT.name / ROBOT.value
 
     # class Levels(Enum):
@@ -37,18 +37,26 @@ class EyeGamePage:
         self.driver.find_element_by_css_selector('.clock').text
 
 
-    def get_to_level(self, num_of_clicks):
-        for i in range(num_of_clicks):
+    def get_to_level(self, level):
+        for i in range(level.value):
             self.click_chosen_one()
-        WebDriverWait(self.driver, 20).until(EC.invisibility_of_element_located((By.ID, "timeleft")))
+        WebDriverWait(self.driver, 20).until(EC.invisibility_of_element_located((By.ID, "timeleft")), message="Timer still visible!")
 
 
     def get_to_robot_level(self):
-        self.get_to_level(self.ROBOT.value)
-       #  for i in range(30):
-       #      self.click_chosen_one()
-       # # wait_until(condition=)
-       #  WebDriverWait(self.driver, 20).until(EC.invisibility_of_element_located((By.ID, "timeleft")))
+        self.get_to_level(self.ROBOT)
+
+
+    def get_to_hawk_level(self):
+        self.get_to_level(self.JASTRZAB)
+
+
+    def check_level_reached(self, level):
+        assert self.driver.find_element(By.CSS_SELECTOR, '.character-title').text == level.name
+
+
+    def check_robot_level_reached(self):
+        self.check_level_reached(self.ROBOT)
 
 
     def get_reached_level(self):
