@@ -5,14 +5,14 @@ from selenium.webdriver.support import expected_conditions as EC
 from collections import namedtuple
 from utils import wait_until
 
-Level = namedtuple("Level", ['name', 'value'])
+#Level = namedtuple("Level", ['name', 'value'])
 
 class EyeGamePage:
 
     url = "https://www.igame.com/eye-test/"
 
-    JASTRZAB = Level(name='jastrząb', value=25)
-    ROBOT = Level(name='ROBOT', value=30)
+    #JASTRZAB = Level(name='jastrząb', value=25)
+    #ROBOT = Level(name='ROBOT', value=30)
     #ROBOT.name / ROBOT.value
 
     # class Levels(Enum):
@@ -32,6 +32,7 @@ class EyeGamePage:
     def click_chosen_one(self):
         #self.driver.find_element_by_css_selector('.thechosenone').click()
         self.driver.find_element(By.CSS_SELECTOR, '.thechosenone').click()
+
 
     def get_current_time(self):
         self.driver.find_element_by_css_selector('.clock').text
@@ -61,3 +62,7 @@ class EyeGamePage:
 
     def get_reached_level(self):
         return self.driver.find_element(By.CSS_SELECTOR, '.character-title').text
+
+
+    def get_title(self):
+        return self.driver.title
